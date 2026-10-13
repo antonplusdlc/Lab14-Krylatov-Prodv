@@ -157,3 +157,19 @@ do
             break;
     }
 } while (!done);
+
+// ## Самостоятельные задания
+
+// 1
+
+string[] lns = File.ReadAllLines("notes.txt");
+int lnCnt = lns.Length;
+int wordCnt = 0;
+
+foreach (string ln in lns)
+{
+    wordCnt += ln.Split(' ').Length;
+}
+
+Console.WriteLine($"lines cnt: {lnCnt}");
+Console.WriteLine($"word cnt: {wordCnt}");
