@@ -33,3 +33,29 @@ foreach (string student in readStudents)
 {
     Console.WriteLine($"- {student}");
 }
+
+Console.WriteLine();
+Console.WriteLine("=== StreamWriter ===");
+
+using (StreamWriter writer = new StreamWriter("log.txt"))
+{
+    writer.WriteLine("Программа запущена");
+    writer.WriteLine($"Дата: {DateTime.Now:dd.MM.yyyy HH:mm}");
+    writer.WriteLine("Операция выполнена успешно");
+}
+
+Console.WriteLine("Файл log.txt записан");
+
+Console.WriteLine();
+Console.WriteLine("=== StreamReader ===");
+
+using (StreamReader reader = new StreamReader("log.txt"))
+{
+    string line;
+    int lineNumber = 1;
+    while ((line = reader.ReadLine()) != null)
+    {
+        Console.WriteLine($"Строка {lineNumber}: {line}");
+        lineNumber++;
+    }
+}
