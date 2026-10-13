@@ -84,3 +84,76 @@ File.WriteAllText(filePath, "Отчёт находится в подпапке d
 
 Console.WriteLine($"Путь к файлу: {filePath}");
 Console.WriteLine(File.ReadAllText(filePath));
+
+// ## Часть 6. Итоговая практика: дневник событий
+
+string diaryPath = "diary.txt";
+bool done = false;
+
+do
+{
+    Console.WriteLine("1 - Добавить запись");
+    Console.WriteLine("2 - Показать все записи");
+    Console.WriteLine("3 - Очистить дневник");
+    Console.WriteLine("4 - Выход");
+    Console.Write("enter operation: ");
+    string oper = Console.ReadLine();
+
+    switch (oper)
+    {
+        case "1":
+            try
+            {
+                Console.Write("enter: ");
+                string zap = Console.ReadLine();
+
+                using (StreamWriter wr = new StreamWriter(diaryPath, true))
+                {
+                    wr.WriteLine($"[{DateTime.Now:dd.MM.yyyy HH:mm}]: {zap}");
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            break;
+        case "2":
+            try
+            {
+                if (File.Exists(diaryPath))
+                {
+                    string[] da = File.ReadAllLines(diaryPath);
+
+                    if (da.Length == 0) Console.WriteLine("dnevnik pust.");
+                    else
+                    {
+                        for (int i = 0; i < da.Length; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {da[i]}");
+                        }
+                    }
+                }
+                else Console.WriteLine("dnevnik pust.");
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            break;
+        case "3":
+            try
+            {
+                if (File.Exists(diaryPath)) File.Delete(diaryPath);
+            } catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            break;
+        case "4":
+            done = true;
+            break;
+        default:
+            Console.WriteLine("incorrect!");
+            break;
+    }
+} while (!done);
