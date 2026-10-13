@@ -173,3 +173,25 @@ foreach (string ln in lns)
 
 Console.WriteLine($"lines cnt: {lnCnt}");
 Console.WriteLine($"word cnt: {wordCnt}");
+
+// 2
+
+void CopyFileManually(string srcPath, string destPath)
+{
+    using (StreamReader r = new StreamReader(srcPath))
+    using (StreamWriter w = new StreamWriter(destPath))
+    {
+        string? l;
+
+        while ((l = r.ReadLine()) != null) w.WriteLine(l);
+    }
+}
+
+string p = "da.txt";
+string d = "da1.txt";
+
+File.WriteAllText(p, "1\n2\n3");
+
+CopyFileManually(p, d);
+
+Console.WriteLine($"{File.ReadAllText(p)}\n{File.ReadAllText(d)}");
