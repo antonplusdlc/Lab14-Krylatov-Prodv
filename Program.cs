@@ -59,3 +59,28 @@ using (StreamReader reader = new StreamReader("log.txt"))
         lineNumber++;
     }
 }
+
+Console.WriteLine();
+Console.WriteLine("=== Обработка ошибок ===");
+
+try
+{
+    string contentt = File.ReadAllText("несуществующий_файл.txt");
+    Console.WriteLine(contentt);
+}
+catch (FileNotFoundException ex)
+{
+    Console.WriteLine($"Файл не найден: {ex.Message}");
+}
+
+Console.WriteLine();
+Console.WriteLine("=== Path.Combine ===");
+
+string folderPath = "data";
+Directory.CreateDirectory(folderPath);
+
+string filePath = Path.Combine(folderPath, "report.txt");
+File.WriteAllText(filePath, "Отчёт находится в подпапке data");
+
+Console.WriteLine($"Путь к файлу: {filePath}");
+Console.WriteLine(File.ReadAllText(filePath));
